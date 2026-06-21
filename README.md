@@ -1,7 +1,8 @@
 # Radboud Thesis Template
 
 <p align="center">
-    <img src="thumbnail.png" width=50%>
+    <img src="thumbnail.png" width=25% style="margin:4px;">
+    <img src="thumbnail2.png" width=25% style="margin:4px;">
 </p>
 
 Template for Radboud University Bachelor's/Master's thesis

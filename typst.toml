@@ -8,7 +8,7 @@ description = "Thesis template for Radboud University"
 repository = "https://github.com/Jorritboer/radboud-thesis-typst"
 categories = ["thesis", "report"]
 keywords = ["thesis", "master", "bachelor", "Radboud", "university", "Nijmegen"]
-compiler = "0.15.0"
+compiler = "0.13.2"
 exclude = [
     "*.pdf",
 ]
