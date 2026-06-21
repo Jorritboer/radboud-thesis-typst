@@ -11,20 +11,25 @@ Title page based on LaTeX package https://ctan.org/pkg/rutitlepage
 
 ## Example Usage
 ```typ
-#import "@preview/now-radboud-thesis:0.1.0": radboud-thesis, appendix
+#import "@preview/now-radboud-thesis:0.2.0": radboud-thesis, appendix, titlepage
+
+#titlepage(
+  title: title,
+  subtitle: [Subtitle],
+  author: "John Doe\ns1234567",
+  others: (
+    (role: "Supervisor:", name: "Dr. Dewey Duck"),
+    (role: "Second reader:", name: "Prof. Dr. Louie Duck"),
+  ),
+  course: [Master’s Thesis],
+  colour: true,
+  dutch: false,
+)
 
 #show: radboud-thesis.with(
-  title: "Title",
-  subtitle: "Subtitle",
-  author: (
-    name: "Author",
-    student-number: "s1234567",
-  ),
-  supervisors: (("Supervisor", "dr. Dewey Duck"), ("Second reader", "prof. dr. Louie Duck")),
-  abstract: [Abstract],
-  thesis-type: "Master's Thesis",
-  study: "Computing Science",
-  date: datetime.today(),
+  abstract: lorem(300),
+  title: title,
+  author: "John Doe",
 )
 
 #outline()
