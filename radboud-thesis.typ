@@ -53,7 +53,7 @@
   // Title Page
   align(center)[
     #text(size: 17pt)[#smallcaps[#thesis-type's Thesis\ #study]]
-    #image("Logo_Radboud_University.svg", width: 25mm)
+    #image("logos/Logo_Radboud_University.svg", width: 25mm)
     #text(size: 14pt)[#smallcaps[Radboud University Nijmegen]]
     #v(2em)
     #line(length: 100%, stroke: 0.4mm)
@@ -116,3 +116,75 @@
   counter(heading).update(0)
   body
 }
+
+#let twentytwo(
+  title: [Title],
+  subtitle: none,
+  author: "John Doe\ns1234567",
+  date: datetime.today().display("[month repr:long] [day padding:none], [year]"),
+  others: (
+    (role: "Supervisor:", name: "Dr. Dewey Duck"),
+    (role: "Second reader:", name: "Prof. Dr. Louie Duck"),
+  ),
+  course: [Master’s Thesis],
+  colour: true,
+  dutch: false,
+) = {
+  let logo-spec = if colour {
+    "cmyk"
+  } else {
+    "bw"
+  }
+
+  if dutch {
+    logo-spec = "nl-" + logo-spec
+  }
+
+  let logo = image("logos/radboud-logo-" + logo-spec + ".svg")
+
+  // Kind of a hacky solution. We don't want to have these fields be empty because then
+  // the height of the cell becomes 0pt due to it being set to auto. This causes
+  // everything below to shift upwards. Maybe it would be better to set the height of
+  // the cells instead of the gutters.
+  if course == "" or course == none {
+    course = sym.zws
+  }
+  if title == "" or title == none {
+    title = sym.zws
+  }
+  if subtitle == "" or subtitle == none {
+    subtitle = sym.zws
+  }
+
+  let gutterspec = (15mm, 12mm, 18mm, 5mm, 48mm)
+
+  set text(font: "New Computer Modern", 11pt)
+  set par(leading: 3mm, justify: false)
+  set page(
+    margin: (left: 25mm, top: 77mm, right: 15mm, bottom: 15mm),
+  )
+
+  grid(
+    rows: auto,
+    row-gutter: gutterspec,
+    text(17pt, smallcaps(course)),
+    text(24pt, hyphenate: false, weight: "bold", title),
+    text(style: "italic", 11pt, subtitle),
+    text(15pt, smallcaps(author)),
+    date,
+    {
+      set par(leading: 0.5em, justify: false)
+      grid.cell(
+        align: start + horizon,
+        grid(
+          ..others.map(
+            other => emph(other.role) + "\n" + other.name,
+          ),
+          gutter: 8mm
+        ),
+      )
+    },
+  )
+  place(bottom + right, logo)
+}
+
