@@ -1,15 +1,10 @@
 #let radboud-thesis(
-  title: [Title],
-  subtitle: [Subtitle],
-  author: (name: "Author", student-number: "s1234567"),
-  supervisors: ((title: "Supervisor", name: "Dr. Dewey Duck"), (title: "Second reader", name: "Prof. Dr. Louie Duck")),
+  title: none,
+  author: none,
   abstract: [],
-  thesis-type: "Bachelor/Master",
-  study: "Computing Science",
-  date: datetime.today(),
   body,
 ) = {
-  set document(title: title, author: author.name)
+  set document(title: title, author: author)
 
   set par(justify: true)
 
@@ -50,44 +45,6 @@
     ),
   )
 
-  // Title Page
-  align(center)[
-    #text(size: 17pt)[#smallcaps[#thesis-type's Thesis\ #study]]
-    #image("logos/Logo_Radboud_University.svg", width: 25mm)
-    #text(size: 14pt)[#smallcaps[Radboud University Nijmegen]]
-    #v(2em)
-    #line(length: 100%, stroke: 0.4mm)
-    #v(.5em)
-    #text(size: 24pt, weight: "bold")[#title]\
-    #text(size: 14pt)[#smallcaps[#subtitle]]
-    #v(.5em)
-    #line(length: 100%, stroke: 0.4mm)
-    #v(2em)
-    #grid(
-      columns: (45%, 45%),
-      align(left)[
-        _Author:_\
-        #author.name\
-        #author.student-number
-      ],
-      align(right)[
-        #{
-          for (title, name) in supervisors {
-            [
-              #text(title + ":", style: "italic")\
-              #name
-              #v(1em)
-            ]
-          }
-        }
-      ],
-    )
-    #v(1fr)
-    #text(size: 12pt)[#date.display("[month repr:long] [day], [year]")]
-  ]
-
-  pagebreak()
-
   v(-8.5em)
   align(center + horizon)[
     #block([*Abstract*])
@@ -95,7 +52,7 @@
     #align(left, abstract)
   ]
 
-  pagebreak()
+  pagebreak(weak: true)
 
   body
 }
@@ -117,7 +74,56 @@
   body
 }
 
-#let twentytwo(
+#let original-titlepage(
+  title: [Title],
+  subtitle: [Subtitle],
+  author: "Author",
+  others: (
+    (role: "Supervisor", name: "Dr. Dewey Duck"),
+    (role: "Second reader", name: "Prof. Dr. Louie Duck"),
+  ),
+  abstract: [],
+  thesis-type: "Bachelor/Master",
+  study: "Computing Science",
+  date: datetime.today(),
+) = {
+  align(center)[
+    #text(size: 17pt)[#smallcaps[#thesis-type's Thesis\ #study]]
+    #image("logos/Logo_Radboud_University.svg", width: 25mm)
+    #text(size: 14pt)[#smallcaps[Radboud University Nijmegen]]
+    #v(2em)
+    #line(length: 100%, stroke: 0.4mm)
+    #v(.5em)
+    #text(size: 24pt, weight: "bold")[#title]\
+    #text(size: 14pt)[#smallcaps[#subtitle]]
+    #v(.5em)
+    #line(length: 100%, stroke: 0.4mm)
+    #v(2em)
+    #grid(
+      columns: (45%, 45%),
+      align(left)[
+        _Author:_\
+        #author
+      ],
+      align(right)[
+        #{
+          for (role, name) in others {
+            [
+              #text(role + ":", style: "italic")\
+              #name
+              #v(1em)
+            ]
+          }
+        }
+      ],
+    )
+    #v(1fr)
+    #text(size: 12pt)[#date.display("[month repr:long] [day padding:none], [year]")]
+  ]
+  pagebreak(weak: true)
+}
+
+#let titlepage(
   title: [Title],
   subtitle: none,
   author: "John Doe\ns1234567",
