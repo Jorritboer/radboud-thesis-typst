@@ -7,9 +7,10 @@
   thesis-type: "Bachelor/Master",
   study: "Computing Science",
   date: datetime.today(),
+  keywords: (),
   body,
 ) = {
-  set document(title: title, author: author.name)
+  set document(title: title, author: author.name, keywords: keywords)
 
   set par(justify: true)
 
